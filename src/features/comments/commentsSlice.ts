@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IComment, IResponseComments } from "../../types";
 import { fetchComments, IFetchCommentsError } from "./commentsActions";
 
-interface ICommentsState {
+export interface ICommentsState {
     items: IComment[];
     limit: number;
     skip: number;
@@ -31,9 +31,11 @@ export const commentsSlice = createSlice({
         },
         addComment: (state, action: PayloadAction<IComment>) => {
             state.items.push(action.payload);
+            state.total = state.items.length;
         },
         deleteComment: (state, action: PayloadAction<number>) => {
             state.items = state.items.filter(comment => comment.id !== action.payload);
+            state.total = state.items.length;
         }
     },
     extraReducers: builder => {

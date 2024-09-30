@@ -1,0 +1,36 @@
+name: app-test-task
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Source code verification
+        uses: actions/checkout@v2
+
+      - name: Installing Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Installing dependencies
+        run: yarn install
+
+      - name: Running tests
+        run: yarn test
+
+      - name: Building applications
+        run: yarn build
+
+      - name: Deploy to Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: npx vercel --prod

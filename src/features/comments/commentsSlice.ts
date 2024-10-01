@@ -14,7 +14,7 @@ export interface ICommentsState {
 
 const initialState: ICommentsState = {
     items: [],
-    limit: 10,
+    limit: 30,
     skip: 0,
     currentPage: 1,
     total: 0,
@@ -23,19 +23,19 @@ const initialState: ICommentsState = {
 };
 
 export const commentsSlice = createSlice({
-    name: 'postsSlice',
+    name: "postsSlice",
     initialState,
     reducers: {
         setCurrentPage: (state, action: PayloadAction<number>) => {
             state.currentPage = action.payload;
         },
         addComment: (state, action: PayloadAction<IComment>) => {
-            state.items.push(action.payload);
-            state.total = state.items.length;
+            state.items.unshift(action.payload);
+            state.total = state.total + 1;
         },
         deleteComment: (state, action: PayloadAction<number>) => {
             state.items = state.items.filter(comment => comment.id !== action.payload);
-            state.total = state.items.length;
+            state.total = state.total - 1;
         }
     },
     extraReducers: builder => {
@@ -66,7 +66,7 @@ export const commentsSlice = createSlice({
                 if (action.payload) {
                     state.error = action.payload.message;
                 } else {
-                    state.error = 'Failed to fetch comments';
+                    state.error = "Failed to fetch comments";
                 }
             })
     }

@@ -30,9 +30,9 @@ describe("Comments feature slice", () => {
         const mockResponse: IResponseComments = {
             comments: [{
                 id: 1,
-                body: 'Test comment',
+                body: "Test comment",
                 likes: 1,
-                user: {id: 1, username: 'Dan', fullname: 'Daniel'},
+                user: {id: 1, username: "Dan", fullName: "Daniel"},
                 postId: 3
             }],
             total: 1,
@@ -86,7 +86,7 @@ describe("Comments feature slice", () => {
             user: {
                 id: 1,
                 username: "User",
-                fullname: "User Fullname"
+                fullName: "User Fullname"
             },
             postId: 1
         };
@@ -108,10 +108,11 @@ describe("Comments feature slice", () => {
                 user: {
                     id: 1,
                     username: "User1",
-                    fullname: "User One"
+                    fullName: "User One"
                 },
                 postId: 3
             }],
+            total: 1,
         };
 
         const action = deleteComment(1);
@@ -131,7 +132,7 @@ describe("Comments feature slice", () => {
                 user: {
                     id: 1,
                     username: "User1",
-                    fullname: "User One"
+                    fullName: "User One"
                 },
                 postId: 3
             }],

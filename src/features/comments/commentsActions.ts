@@ -12,10 +12,12 @@ export const fetchComments = createAsyncThunk<
     { limit?: number; skip?: number },
     { rejectValue: IFetchCommentsError  }
 >(
-    'comments/fetchComments',
-    async ({limit = 10, skip = 0}, { rejectWithValue }) => {
+    "comments/fetchComments",
+    async ({limit = 30, skip = 0}, { rejectWithValue }) => {
+        const url = `https://dummyjson.com/comments/?limit=${limit}&skip=${(skip - 1) * limit}`;
+
         try {
-            const response = await axios.get(`https://dummyjson.com/comments/?limit=${limit}&skip=${skip}`);
+            const response = await axios.get(url);
             return response.data;
         } catch (error) {
             if (axios.isAxiosError(error)) {
@@ -25,7 +27,7 @@ export const fetchComments = createAsyncThunk<
                 });
             } else {
                 return rejectWithValue({
-                    message: 'Unexpected error occurred',
+                    message: "Unexpected error occurred",
                 });
             }
         }
